@@ -3,8 +3,10 @@ import {
   View,
   Text,
   TextInput,
+  TouchableOpacity,
   StyleSheet,
 } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { theme } from '../styles/theme';
 
 export default function CustomInput({
@@ -13,6 +15,7 @@ export default function CustomInput({
   onChangeText,
   placeholder,
   error,
+  isPassword = false,
   secureTextEntry = false,
   keyboardType = 'default',
   autoCapitalize = 'none',
@@ -23,6 +26,8 @@ export default function CustomInput({
   ...props
 }) {
   const [isFocused, setIsFocused] = useState(false);
+  // Password visibility toggle state
+  const [isSecure, setIsSecure] = useState(true);
 
   const hasError = Boolean(error);
 
@@ -31,6 +36,9 @@ export default function CustomInput({
     isFocused && styles.inputWrapperFocused,
     hasError && styles.inputWrapperError,
   ];
+
+  // Determine actual secureTextEntry based on whether isPassword toggle is active
+  const effectiveSecureTextEntry = isPassword ? isSecure : secureTextEntry;
 
   return (
     <View style={[styles.container, containerStyle]}>
@@ -42,7 +50,7 @@ export default function CustomInput({
           onChangeText={onChangeText}
           placeholder={placeholder}
           placeholderTextColor={theme.colors.textMuted}
-          secureTextEntry={secureTextEntry}
+          secureTextEntry={effectiveSecureTextEntry}
           keyboardType={keyboardType}
           autoCapitalize={autoCapitalize}
           autoCorrect={autoCorrect}
@@ -50,9 +58,26 @@ export default function CustomInput({
           onBlur={() => setIsFocused(false)}
           {...props}
         />
-        {rightAccessory && (
+
+        {/* Password visibility toggle bonus */}
+        {isPassword ? (
+          <TouchableOpacity
+            onPress={() => setIsSecure((prev) => !prev)}
+            style={styles.eyeButton}
+            accessibilityRole="button"
+            accessibilityLabel={isSecure ? 'Show password' : 'Hide password'}
+            hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
+            activeOpacity={0.7}
+          >
+            <Ionicons
+              name={isSecure ? 'eye-off-outline' : 'eye-outline'}
+              size={22}
+              color={theme.colors.textSecondary}
+            />
+          </TouchableOpacity>
+        ) : rightAccessory ? (
           <View style={styles.rightAccessoryContainer}>{rightAccessory}</View>
-        )}
+        ) : null}
       </View>
       {hasError && <Text style={styles.errorText}>{error}</Text>}
     </View>
@@ -92,6 +117,12 @@ const styles = StyleSheet.create({
     height: '100%',
     color: theme.colors.textPrimary,
     fontSize: theme.typography.body.fontSize,
+  },
+  eyeButton: {
+    padding: theme.spacing.xs,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginLeft: theme.spacing.xs,
   },
   rightAccessoryContainer: {
     marginLeft: theme.spacing.sm,

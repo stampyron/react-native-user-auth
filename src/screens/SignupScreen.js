@@ -119,7 +119,7 @@ export default function SignupScreen({ navigation }) {
                 value={form.password}
                 onChangeText={(val) => updateField('password', val)}
                 placeholder="At least 6 characters"
-                secureTextEntry
+                isPassword
                 error={errors.password}
               />
 

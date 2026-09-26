@@ -110,7 +110,7 @@ export default function LoginScreen({ navigation }) {
                 value={form.password}
                 onChangeText={(val) => updateField('password', val)}
                 placeholder="Enter your password"
-                secureTextEntry
+                isPassword
                 error={errors.password}
               />
 
