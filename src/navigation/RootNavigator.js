@@ -1,10 +1,13 @@
 import React from 'react';
 import { View, ActivityIndicator, StyleSheet } from 'react-native';
+import { useAuth } from '../context/AuthContext';
 import AuthStack from './AuthStack';
 import AppStack from './AppStack';
 import { theme } from '../styles/theme';
 
-export default function RootNavigator({ user = null, isLoading = false }) {
+export default function RootNavigator() {
+  const { user, isLoading } = useAuth();
+
   if (isLoading) {
     return (
       <View style={styles.loadingContainer}>
