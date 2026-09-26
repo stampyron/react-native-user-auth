@@ -1,44 +1,21 @@
+import mockAsyncStorage from '@react-native-async-storage/async-storage/jest/async-storage-mock';
 import { jest } from '@jest/globals';
 
-let mockStore = {};
+jest.mock('@react-native-async-storage/async-storage', () => mockAsyncStorage);
 
-jest.unstable_mockModule('@react-native-async-storage/async-storage', () => ({
-  default: {
-    getItem: jest.fn(async (key) => mockStore[key] || null),
-    setItem: jest.fn(async (key, value) => {
-      mockStore[key] = String(value);
-    }),
-    removeItem: jest.fn(async (key) => {
-      delete mockStore[key];
-    }),
-    multiRemove: jest.fn(async (keys) => {
-      keys.forEach((k) => delete mockStore[k]);
-    }),
-  },
-}));
-
-let getUsers;
-let saveUser;
-let findUser;
-let getCurrentUser;
-let setCurrentUser;
-let clearCurrentUser;
-let clearAllAuthData;
+import {
+  getUsers,
+  saveUser,
+  findUser,
+  getCurrentUser,
+  setCurrentUser,
+  clearCurrentUser,
+  clearAllAuthData,
+} from '../src/utils/storage';
 
 describe('Storage & Mock Backend Utility Suite', () => {
-  beforeAll(async () => {
-    const storage = await import('../src/utils/storage');
-    getUsers = storage.getUsers;
-    saveUser = storage.saveUser;
-    findUser = storage.findUser;
-    getCurrentUser = storage.getCurrentUser;
-    setCurrentUser = storage.setCurrentUser;
-    clearCurrentUser = storage.clearCurrentUser;
-    clearAllAuthData = storage.clearAllAuthData;
-  });
-
-  beforeEach(() => {
-    mockStore = {};
+  beforeEach(async () => {
+    await mockAsyncStorage.clear();
     jest.clearAllMocks();
   });
 
