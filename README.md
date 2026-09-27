@@ -23,6 +23,18 @@ A cross-platform React Native authentication application developed with **Expo**
 
 ---
 
+## 📸 Application Screenshots
+
+| 1. Login Screen | 2. Field Validation Errors | 3. Duplicate Email Error |
+|:---:|:---:|:---:|
+| <img src="./assets/screenshots/01-login-screen.jpeg" width="240" alt="Login Screen" /> | <img src="./assets/screenshots/02-login-validation.jpeg" width="240" alt="Login Validation Errors" /> | <img src="./assets/screenshots/03-signup-duplicate-error.jpeg" width="240" alt="Duplicate Email Error" /> |
+
+| 4. Password Toggle (Bonus) | 5. Authenticated Dashboard | 6. Logout Confirmation |
+|:---:|:---:|:---:|
+| <img src="./assets/screenshots/04-password-toggle.jpeg" width="240" alt="Password Visibility Toggle" /> | <img src="./assets/screenshots/05-home-dashboard.jpeg" width="240" alt="Home Dashboard" /> | <img src="./assets/screenshots/06-logout-confirmation.jpeg" width="240" alt="Logout Confirmation" /> |
+
+---
+
 ## 🔒 Security Note (Architecture & Production Readiness)
 
 > [!NOTE]
@@ -51,7 +63,9 @@ flowchart TD
 ### Directory Structure
 ```text
 user-auth-app/
-├── assets/                       # App icons and splash screen assets
+├── assets/
+│   ├── screenshots/              # Application demonstration screenshots
+│   └── ...                       # App icons and splash screen assets
 ├── src/
 │   ├── components/
 │   │   ├── CustomInput.js        # Form input with focus state, errors & eye toggle
@@ -136,15 +150,4 @@ The application covers all 9 test scenarios specified in the roadmap:
 | 7 | **Password Toggle (Bonus)** | Click eye icon in password field | Obscured dots switch to readable text and back with icon state change | ✅ Verified |
 | 8 | **Session Persistence** | Close and relaunch the app | App restores session from AsyncStorage; user stays logged into Home screen | ✅ Verified |
 | 9 | **Logout** | Tap "Log Out" on Home screen | AsyncStorage session cleared; app resets immediately to Login screen | ✅ Verified |
-
----
-
-## 📜 Git Commit History
-The project was constructed following an incremental commit methodology:
-- `fb2757d` Initial commit
-- `b72ad06` feat: project setup and navigation
-- `185f89c` feat: auth context and async storage integration
-- `3b45c9e` feat: login and signup screens with validation
-- `7a5c87c` feat: home screen and logout
-- `66577f9` feat: password toggle bonus feature
 
