@@ -147,3 +147,4 @@ The project was constructed following an incremental commit methodology:
 - `3b45c9e` feat: login and signup screens with validation
 - `7a5c87c` feat: home screen and logout
 - `66577f9` feat: password toggle bonus feature
+
